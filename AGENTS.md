@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Every page lives under a `/$locale` prefix (`pt`, `en`); `/` redirects to the default locale. Why: the URL is the language contract carried over from the original site.
+- Translations are bundled from `src/i18n/locales/*.json`, one fixed i18next instance per locale provided by the `$locale` layout; never call `changeLanguage` on a shared instance. Why: SSR stays correct when both languages render concurrently.
+- Build in-site links with `useLocale().to()` and render them through `AppLink`. Why: keeps the locale prefix and parses `?search`/`#hash` for the router.
+- Catalog reads go through `src/lib/catalog.functions.ts` (public publishable-key server functions) with `catalog-queries.ts` query options in route loaders. Why: product pages render with data and per-product metadata on first load.
+- Checkout requires a signed-in session via a client-only `beforeLoad` that redirects to `/$locale/signin?next=`; imported accounts set their password through the reset-password page. Why: sessions live in browser storage.
