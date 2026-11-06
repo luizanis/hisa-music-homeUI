@@ -10,33 +10,168 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocaleRouteImport } from './routes/$locale'
+import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
+import { Route as LocaleSplatRouteImport } from './routes/$locale.$'
+import { Route as LocaleAcademyRouteImport } from './routes/$locale.academy'
+import { Route as LocaleContactRouteImport } from './routes/$locale.contact'
+import { Route as LocaleMusicRouteImport } from './routes/$locale.music'
+import { Route as LocaleResetPasswordRouteImport } from './routes/$locale.reset-password'
+import { Route as LocaleSigninRouteImport } from './routes/$locale.signin'
+import { Route as LocaleSoundsRouteImport } from './routes/$locale.sounds'
+import { Route as LocaleCheckoutSlugRouteImport } from './routes/$locale.checkout.$slug'
+import { Route as LocaleProductSlugRouteImport } from './routes/$locale.product.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocaleRoute = LocaleRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleIndexRoute = LocaleIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleSplatRoute = LocaleSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleAcademyRoute = LocaleAcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleContactRoute = LocaleContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleMusicRoute = LocaleMusicRouteImport.update({
+  id: '/music',
+  path: '/music',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleResetPasswordRoute = LocaleResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleSigninRoute = LocaleSigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleSoundsRoute = LocaleSoundsRouteImport.update({
+  id: '/sounds',
+  path: '/sounds',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleCheckoutSlugRoute = LocaleCheckoutSlugRouteImport.update({
+  id: '/checkout/$slug',
+  path: '/checkout/$slug',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleProductSlugRoute = LocaleProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => LocaleRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteWithChildren
+  '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/academy': typeof LocaleAcademyRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/music': typeof LocaleMusicRoute
+  '/$locale/reset-password': typeof LocaleResetPasswordRoute
+  '/$locale/signin': typeof LocaleSigninRoute
+  '/$locale/sounds': typeof LocaleSoundsRoute
+  '/$locale/': typeof LocaleIndexRoute
+  '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
+  '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/academy': typeof LocaleAcademyRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/music': typeof LocaleMusicRoute
+  '/$locale/reset-password': typeof LocaleResetPasswordRoute
+  '/$locale/signin': typeof LocaleSigninRoute
+  '/$locale/sounds': typeof LocaleSoundsRoute
+  '/$locale': typeof LocaleIndexRoute
+  '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
+  '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRouteWithChildren
+  '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/academy': typeof LocaleAcademyRoute
+  '/$locale/contact': typeof LocaleContactRoute
+  '/$locale/music': typeof LocaleMusicRoute
+  '/$locale/reset-password': typeof LocaleResetPasswordRoute
+  '/$locale/signin': typeof LocaleSigninRoute
+  '/$locale/sounds': typeof LocaleSoundsRoute
+  '/$locale/': typeof LocaleIndexRoute
+  '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
+  '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/$locale'
+    | '/$locale/$'
+    | '/$locale/academy'
+    | '/$locale/contact'
+    | '/$locale/music'
+    | '/$locale/reset-password'
+    | '/$locale/signin'
+    | '/$locale/sounds'
+    | '/$locale/'
+    | '/$locale/checkout/$slug'
+    | '/$locale/product/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/$locale/$'
+    | '/$locale/academy'
+    | '/$locale/contact'
+    | '/$locale/music'
+    | '/$locale/reset-password'
+    | '/$locale/signin'
+    | '/$locale/sounds'
+    | '/$locale'
+    | '/$locale/checkout/$slug'
+    | '/$locale/product/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/$locale'
+    | '/$locale/$'
+    | '/$locale/academy'
+    | '/$locale/contact'
+    | '/$locale/music'
+    | '/$locale/reset-password'
+    | '/$locale/signin'
+    | '/$locale/sounds'
+    | '/$locale/'
+    | '/$locale/checkout/$slug'
+    | '/$locale/product/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocaleRoute: typeof LocaleRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +183,118 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale/': {
+      id: '/$locale/'
+      path: '/'
+      fullPath: '/$locale/'
+      preLoaderRoute: typeof LocaleIndexRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/$': {
+      id: '/$locale/$'
+      path: '/$'
+      fullPath: '/$locale/$'
+      preLoaderRoute: typeof LocaleSplatRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/academy': {
+      id: '/$locale/academy'
+      path: '/academy'
+      fullPath: '/$locale/academy'
+      preLoaderRoute: typeof LocaleAcademyRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/contact': {
+      id: '/$locale/contact'
+      path: '/contact'
+      fullPath: '/$locale/contact'
+      preLoaderRoute: typeof LocaleContactRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/music': {
+      id: '/$locale/music'
+      path: '/music'
+      fullPath: '/$locale/music'
+      preLoaderRoute: typeof LocaleMusicRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/reset-password': {
+      id: '/$locale/reset-password'
+      path: '/reset-password'
+      fullPath: '/$locale/reset-password'
+      preLoaderRoute: typeof LocaleResetPasswordRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/signin': {
+      id: '/$locale/signin'
+      path: '/signin'
+      fullPath: '/$locale/signin'
+      preLoaderRoute: typeof LocaleSigninRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/sounds': {
+      id: '/$locale/sounds'
+      path: '/sounds'
+      fullPath: '/$locale/sounds'
+      preLoaderRoute: typeof LocaleSoundsRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/checkout/$slug': {
+      id: '/$locale/checkout/$slug'
+      path: '/checkout/$slug'
+      fullPath: '/$locale/checkout/$slug'
+      preLoaderRoute: typeof LocaleCheckoutSlugRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/product/$slug': {
+      id: '/$locale/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/$locale/product/$slug'
+      preLoaderRoute: typeof LocaleProductSlugRouteImport
+      parentRoute: typeof LocaleRoute
+    }
   }
 }
 
+interface LocaleRouteChildren {
+  LocaleSplatRoute: typeof LocaleSplatRoute
+  LocaleAcademyRoute: typeof LocaleAcademyRoute
+  LocaleContactRoute: typeof LocaleContactRoute
+  LocaleMusicRoute: typeof LocaleMusicRoute
+  LocaleResetPasswordRoute: typeof LocaleResetPasswordRoute
+  LocaleSigninRoute: typeof LocaleSigninRoute
+  LocaleSoundsRoute: typeof LocaleSoundsRoute
+  LocaleIndexRoute: typeof LocaleIndexRoute
+  LocaleCheckoutSlugRoute: typeof LocaleCheckoutSlugRoute
+  LocaleProductSlugRoute: typeof LocaleProductSlugRoute
+}
+
+const LocaleRouteChildren: LocaleRouteChildren = {
+  LocaleSplatRoute: LocaleSplatRoute,
+  LocaleAcademyRoute: LocaleAcademyRoute,
+  LocaleContactRoute: LocaleContactRoute,
+  LocaleMusicRoute: LocaleMusicRoute,
+  LocaleResetPasswordRoute: LocaleResetPasswordRoute,
+  LocaleSigninRoute: LocaleSigninRoute,
+  LocaleSoundsRoute: LocaleSoundsRoute,
+  LocaleIndexRoute: LocaleIndexRoute,
+  LocaleCheckoutSlugRoute: LocaleCheckoutSlugRoute,
+  LocaleProductSlugRoute: LocaleProductSlugRoute,
+}
+
+const LocaleRouteWithChildren =
+  LocaleRoute._addFileChildren(LocaleRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocaleRoute: LocaleRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,22 @@
+{
+  "source": "code archive (Enter.pro project: enter_HISA_Multi.zip)",
+  "capabilities": [
+    {"capability": "code", "source": "Vite + React Router SPA, 8 locale-prefixed pages (/pt, /en)", "outcome": "migrate", "status": "in_progress", "next_action": "Port pages to TanStack Start file routes under /$locale"},
+    {"capability": "i18n", "source": "i18next with public/locales pt.json + en.json, URL-prefixed locale", "outcome": "migrate", "status": "in_progress", "next_action": "Bundle locales, per-locale i18n instance for SSR"},
+    {"capability": "design", "source": "Tailwind v3 grayscale wireframe tokens (wire-*, media-*), Inter font", "outcome": "migrate", "status": "in_progress", "next_action": "Port tokens to Tailwind v4 styles.css"},
+    {"capability": "assets", "source": "public/press/*.jpg, public/downloads/hisa-epk.pdf, favicon", "outcome": "migrate", "status": "in_progress", "next_action": "Copy to public/ preserving URLs"},
+    {"capability": "schema", "source": "supabase/migrations: catalog_products, contact_inquiries", "outcome": "migrate", "status": "in_progress", "next_action": "Recreate in Lovable Cloud with same constraints and RLS"},
+    {"capability": "records: catalog_products", "source": "14 published rows read from the source public catalog API", "outcome": "migrate", "status": "in_progress", "next_action": "Seed in migration, verify counts"},
+    {"capability": "records: contact_inquiries", "source": "private insert-only table on Enter Cloud database", "outcome": "migrate", "status": "pending", "next_action": "User to export contact_inquiries as CSV/JSON from Enter Cloud"},
+    {"capability": "auth identities", "source": "Enter Cloud (Supabase) auth users, email/password + Google", "outcome": "migrate", "status": "pending", "next_action": "User to export users (id, email); import then first-login reset flow"},
+    {"capability": "authorization", "source": "Checkout requires a signed-in session; no user-owned tables", "outcome": "migrate", "status": "in_progress", "next_action": "Recreate sign-in gate on checkout"},
+    {"capability": "auth: first-login password setup", "source": "required for imported users", "outcome": "migrate", "status": "in_progress", "next_action": "Forgot/set-password flow + reset-password page"},
+    {"capability": "payments", "source": "Checkout is a draft (no provider wired, 'pay' only shows a notice)", "outcome": "preserve as draft", "status": "in_progress", "next_action": "None; no payment provider in source"},
+    {"capability": "analytics", "source": "@enter-pro/analytics-sdk (source platform runtime)", "outcome": "replace with Lovable built-in visitor analytics", "status": "in_progress", "next_action": "Drop SDK and VITE_ENTER_* platform variables"},
+    {"capability": "uploaded file bytes / storage", "source": "none detected", "outcome": "n/a", "status": "verified", "next_action": "None"},
+    {"capability": "public endpoints / webhooks / schedules", "source": "none detected", "outcome": "n/a", "status": "verified", "next_action": "None"},
+    {"capability": "secrets", "source": "none required (Enter analytics vars are platform metadata)", "outcome": "n/a", "status": "verified", "next_action": "None"},
+    {"capability": "cutover", "source": "Enter.pro hosting", "outcome": "pending", "status": "pending", "next_action": "Publish on Lovable and point domain when ready"},
+    {"capability": "verification", "source": "", "outcome": "verify", "status": "pending", "next_action": "Route checks, catalog read, contact insert, sign-up/sign-in"}
+  ]
+}
