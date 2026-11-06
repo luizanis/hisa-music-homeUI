@@ -20,6 +20,7 @@ import { Route as LocaleMusicRouteImport } from './routes/$locale.music'
 import { Route as LocaleResetPasswordRouteImport } from './routes/$locale.reset-password'
 import { Route as LocaleSigninRouteImport } from './routes/$locale.signin'
 import { Route as LocaleSoundsRouteImport } from './routes/$locale.sounds'
+import { Route as LocaleMemberAccountRouteImport } from './routes/$locale._member.account'
 import { Route as LocaleMemberDashboardRouteImport } from './routes/$locale._member.dashboard'
 import { Route as LocaleMemberMyCoursesRouteImport } from './routes/$locale._member.my-courses'
 import { Route as LocaleMemberMyLibraryRouteImport } from './routes/$locale._member.my-library'
@@ -83,6 +84,11 @@ const LocaleSoundsRoute = LocaleSoundsRouteImport.update({
   path: '/sounds',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleMemberAccountRoute = LocaleMemberAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => LocaleMemberRoute,
+} as any)
 const LocaleMemberDashboardRoute = LocaleMemberDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -138,6 +144,7 @@ export interface FileRoutesByFullPath {
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/account': typeof LocaleMemberAccountRoute
   '/$locale/dashboard': typeof LocaleMemberDashboardRoute
   '/$locale/my-courses': typeof LocaleMemberMyCoursesRoute
   '/$locale/my-library': typeof LocaleMemberMyLibraryRoute
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/$locale/reset-password': typeof LocaleResetPasswordRoute
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
+  '/$locale/account': typeof LocaleMemberAccountRoute
   '/$locale/dashboard': typeof LocaleMemberDashboardRoute
   '/$locale/my-courses': typeof LocaleMemberMyCoursesRoute
   '/$locale/my-library': typeof LocaleMemberMyLibraryRoute
@@ -179,6 +187,7 @@ export interface FileRoutesById {
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/_member/account': typeof LocaleMemberAccountRoute
   '/$locale/_member/dashboard': typeof LocaleMemberDashboardRoute
   '/$locale/_member/my-courses': typeof LocaleMemberMyCoursesRoute
   '/$locale/_member/my-library': typeof LocaleMemberMyLibraryRoute
@@ -201,6 +210,7 @@ export interface FileRouteTypes {
     | '/$locale/signin'
     | '/$locale/sounds'
     | '/$locale/'
+    | '/$locale/account'
     | '/$locale/dashboard'
     | '/$locale/my-courses'
     | '/$locale/my-library'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/$locale/reset-password'
     | '/$locale/signin'
     | '/$locale/sounds'
+    | '/$locale/account'
     | '/$locale/dashboard'
     | '/$locale/my-courses'
     | '/$locale/my-library'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/$locale/signin'
     | '/$locale/sounds'
     | '/$locale/'
+    | '/$locale/_member/account'
     | '/$locale/_member/dashboard'
     | '/$locale/_member/my-courses'
     | '/$locale/_member/my-library'
@@ -335,6 +347,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleSoundsRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/_member/account': {
+      id: '/$locale/_member/account'
+      path: '/account'
+      fullPath: '/$locale/account'
+      preLoaderRoute: typeof LocaleMemberAccountRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
     '/$locale/_member/dashboard': {
       id: '/$locale/_member/dashboard'
       path: '/dashboard'
@@ -395,6 +414,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface LocaleMemberRouteChildren {
+  LocaleMemberAccountRoute: typeof LocaleMemberAccountRoute
   LocaleMemberDashboardRoute: typeof LocaleMemberDashboardRoute
   LocaleMemberMyCoursesRoute: typeof LocaleMemberMyCoursesRoute
   LocaleMemberMyLibraryRoute: typeof LocaleMemberMyLibraryRoute
@@ -404,6 +424,7 @@ interface LocaleMemberRouteChildren {
 }
 
 const LocaleMemberRouteChildren: LocaleMemberRouteChildren = {
+  LocaleMemberAccountRoute: LocaleMemberAccountRoute,
   LocaleMemberDashboardRoute: LocaleMemberDashboardRoute,
   LocaleMemberMyCoursesRoute: LocaleMemberMyCoursesRoute,
   LocaleMemberMyLibraryRoute: LocaleMemberMyLibraryRoute,
