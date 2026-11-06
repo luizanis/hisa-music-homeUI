@@ -52,14 +52,14 @@ export const CartButton = () => {
 /** Profile icon: sign-in when signed out, account menu when signed in. */
 export const UserMenu = () => {
   const { t } = useTranslation();
-  const { to } = useLocale();
+  const { locale, to } = useLocale();
   const navigate = useNavigate();
   const { user } = useAuthUser();
   const profile = useProfile();
 
   if (!user) {
     return (
-      <Link to={signinHref(to(""), to("dashboard")).replace(/^\/[a-z]{2}\/?/, `${to("")}/`)} aria-label={t("header.signin")} className={iconButton}>
+      <Link to={signinHref(locale, to("dashboard"))} aria-label={t("header.signin")} className={iconButton}>
         <UserRound aria-hidden className="h-4 w-4" strokeWidth={1.5} />
       </Link>
     );

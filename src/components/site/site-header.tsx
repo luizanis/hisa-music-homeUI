@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 
 import { AppLink as Link } from "@/components/site/app-link";
 import { Container } from "@/components/site/container";
+import { CartButton, UserMenu } from "@/components/site/header-actions";
 import { LocaleSwitcher } from "@/components/site/locale-switcher";
 import { mainNav } from "@/components/site/nav-items";
 import { useLocale } from "@/i18n/routing";
@@ -88,6 +89,8 @@ export const SiteHeader = () => {
 
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
+          <CartButton />
+          <UserMenu />
           <button
             type="button"
             onClick={() => setIsOpen((value) => !value)}
