@@ -23,8 +23,11 @@ import { Route as LocaleSoundsRouteImport } from './routes/$locale.sounds'
 import { Route as LocaleMemberDashboardRouteImport } from './routes/$locale._member.dashboard'
 import { Route as LocaleMemberMyCoursesRouteImport } from './routes/$locale._member.my-courses'
 import { Route as LocaleMemberMyLibraryRouteImport } from './routes/$locale._member.my-library'
+import { Route as LocaleMemberOrderConfirmationRouteImport } from './routes/$locale._member.order-confirmation'
 import { Route as LocaleCheckoutSlugRouteImport } from './routes/$locale.checkout.$slug'
 import { Route as LocaleProductSlugRouteImport } from './routes/$locale.product.$slug'
+import { Route as LocaleMemberMyOrdersIndexRouteImport } from './routes/$locale._member.my-orders.index'
+import { Route as LocaleMemberMyOrdersOrderIdRouteImport } from './routes/$locale._member.my-orders.$orderId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -95,6 +98,12 @@ const LocaleMemberMyLibraryRoute = LocaleMemberMyLibraryRouteImport.update({
   path: '/my-library',
   getParentRoute: () => LocaleMemberRoute,
 } as any)
+const LocaleMemberOrderConfirmationRoute =
+  LocaleMemberOrderConfirmationRouteImport.update({
+    id: '/order-confirmation',
+    path: '/order-confirmation',
+    getParentRoute: () => LocaleMemberRoute,
+  } as any)
 const LocaleCheckoutSlugRoute = LocaleCheckoutSlugRouteImport.update({
   id: '/checkout/$slug',
   path: '/checkout/$slug',
@@ -105,6 +114,18 @@ const LocaleProductSlugRoute = LocaleProductSlugRouteImport.update({
   path: '/product/$slug',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleMemberMyOrdersIndexRoute =
+  LocaleMemberMyOrdersIndexRouteImport.update({
+    id: '/my-orders/',
+    path: '/my-orders/',
+    getParentRoute: () => LocaleMemberRoute,
+  } as any)
+const LocaleMemberMyOrdersOrderIdRoute =
+  LocaleMemberMyOrdersOrderIdRouteImport.update({
+    id: '/my-orders/$orderId',
+    path: '/my-orders/$orderId',
+    getParentRoute: () => LocaleMemberRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -120,8 +141,11 @@ export interface FileRoutesByFullPath {
   '/$locale/dashboard': typeof LocaleMemberDashboardRoute
   '/$locale/my-courses': typeof LocaleMemberMyCoursesRoute
   '/$locale/my-library': typeof LocaleMemberMyLibraryRoute
+  '/$locale/order-confirmation': typeof LocaleMemberOrderConfirmationRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
+  '/$locale/my-orders/$orderId': typeof LocaleMemberMyOrdersOrderIdRoute
+  '/$locale/my-orders/': typeof LocaleMemberMyOrdersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -136,8 +160,11 @@ export interface FileRoutesByTo {
   '/$locale/dashboard': typeof LocaleMemberDashboardRoute
   '/$locale/my-courses': typeof LocaleMemberMyCoursesRoute
   '/$locale/my-library': typeof LocaleMemberMyLibraryRoute
+  '/$locale/order-confirmation': typeof LocaleMemberOrderConfirmationRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
+  '/$locale/my-orders/$orderId': typeof LocaleMemberMyOrdersOrderIdRoute
+  '/$locale/my-orders': typeof LocaleMemberMyOrdersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -155,8 +182,11 @@ export interface FileRoutesById {
   '/$locale/_member/dashboard': typeof LocaleMemberDashboardRoute
   '/$locale/_member/my-courses': typeof LocaleMemberMyCoursesRoute
   '/$locale/_member/my-library': typeof LocaleMemberMyLibraryRoute
+  '/$locale/_member/order-confirmation': typeof LocaleMemberOrderConfirmationRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
+  '/$locale/_member/my-orders/$orderId': typeof LocaleMemberMyOrdersOrderIdRoute
+  '/$locale/_member/my-orders/': typeof LocaleMemberMyOrdersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -174,8 +204,11 @@ export interface FileRouteTypes {
     | '/$locale/dashboard'
     | '/$locale/my-courses'
     | '/$locale/my-library'
+    | '/$locale/order-confirmation'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
+    | '/$locale/my-orders/$orderId'
+    | '/$locale/my-orders/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -190,8 +223,11 @@ export interface FileRouteTypes {
     | '/$locale/dashboard'
     | '/$locale/my-courses'
     | '/$locale/my-library'
+    | '/$locale/order-confirmation'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
+    | '/$locale/my-orders/$orderId'
+    | '/$locale/my-orders'
   id:
     | '__root__'
     | '/'
@@ -208,8 +244,11 @@ export interface FileRouteTypes {
     | '/$locale/_member/dashboard'
     | '/$locale/_member/my-courses'
     | '/$locale/_member/my-library'
+    | '/$locale/_member/order-confirmation'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
+    | '/$locale/_member/my-orders/$orderId'
+    | '/$locale/_member/my-orders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -317,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleMemberMyLibraryRouteImport
       parentRoute: typeof LocaleMemberRoute
     }
+    '/$locale/_member/order-confirmation': {
+      id: '/$locale/_member/order-confirmation'
+      path: '/order-confirmation'
+      fullPath: '/$locale/order-confirmation'
+      preLoaderRoute: typeof LocaleMemberOrderConfirmationRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
     '/$locale/checkout/$slug': {
       id: '/$locale/checkout/$slug'
       path: '/checkout/$slug'
@@ -331,6 +377,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleProductSlugRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/_member/my-orders/': {
+      id: '/$locale/_member/my-orders/'
+      path: '/my-orders'
+      fullPath: '/$locale/my-orders/'
+      preLoaderRoute: typeof LocaleMemberMyOrdersIndexRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
+    '/$locale/_member/my-orders/$orderId': {
+      id: '/$locale/_member/my-orders/$orderId'
+      path: '/my-orders/$orderId'
+      fullPath: '/$locale/my-orders/$orderId'
+      preLoaderRoute: typeof LocaleMemberMyOrdersOrderIdRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
   }
 }
 
@@ -338,12 +398,18 @@ interface LocaleMemberRouteChildren {
   LocaleMemberDashboardRoute: typeof LocaleMemberDashboardRoute
   LocaleMemberMyCoursesRoute: typeof LocaleMemberMyCoursesRoute
   LocaleMemberMyLibraryRoute: typeof LocaleMemberMyLibraryRoute
+  LocaleMemberOrderConfirmationRoute: typeof LocaleMemberOrderConfirmationRoute
+  LocaleMemberMyOrdersOrderIdRoute: typeof LocaleMemberMyOrdersOrderIdRoute
+  LocaleMemberMyOrdersIndexRoute: typeof LocaleMemberMyOrdersIndexRoute
 }
 
 const LocaleMemberRouteChildren: LocaleMemberRouteChildren = {
   LocaleMemberDashboardRoute: LocaleMemberDashboardRoute,
   LocaleMemberMyCoursesRoute: LocaleMemberMyCoursesRoute,
   LocaleMemberMyLibraryRoute: LocaleMemberMyLibraryRoute,
+  LocaleMemberOrderConfirmationRoute: LocaleMemberOrderConfirmationRoute,
+  LocaleMemberMyOrdersOrderIdRoute: LocaleMemberMyOrdersOrderIdRoute,
+  LocaleMemberMyOrdersIndexRoute: LocaleMemberMyOrdersIndexRoute,
 }
 
 const LocaleMemberRouteWithChildren = LocaleMemberRoute._addFileChildren(
