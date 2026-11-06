@@ -8,6 +8,7 @@ import { AppLink as Link } from "@/components/site/app-link";
 import { Button } from "@/components/ui/button";
 import { translate } from "@/i18n/config";
 import { useLocale } from "@/i18n/routing";
+import { formatPrice } from "@/lib/catalog";
 import { cartActions, useOrders } from "@/lib/member-store";
 import { pageHead } from "@/lib/seo";
 
@@ -83,7 +84,7 @@ function OrderDetailPage() {
               <SummaryRow label={t("orders.method")} value={t(`checkout.${order.method}`)} />
               <SummaryRow label={t("orders.status")} value={<OrderStatusBadge status={order.status} />} />
               <SummaryRow label={t("orders.date")} value={formatDate(order.createdAt, locale)} />
-              <SummaryRow label={t("checkout.total")} value={order.total_cents ? new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(order.total_cents / 100) : "—"} />
+              <SummaryRow label={t("checkout.total")} value={formatPrice(order.total_cents)} />
             </div>
             <p className="border-t border-wire-rule px-4 py-3 text-[11px] leading-relaxed text-wire-ink-soft">
               {t(`orders.statusNote.${order.status}`)}
