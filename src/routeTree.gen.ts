@@ -20,6 +20,9 @@ import { Route as LocaleMusicRouteImport } from './routes/$locale.music'
 import { Route as LocaleResetPasswordRouteImport } from './routes/$locale.reset-password'
 import { Route as LocaleSigninRouteImport } from './routes/$locale.signin'
 import { Route as LocaleSoundsRouteImport } from './routes/$locale.sounds'
+import { Route as LocaleMemberDashboardRouteImport } from './routes/$locale._member.dashboard'
+import { Route as LocaleMemberMyCoursesRouteImport } from './routes/$locale._member.my-courses'
+import { Route as LocaleMemberMyLibraryRouteImport } from './routes/$locale._member.my-library'
 import { Route as LocaleCheckoutSlugRouteImport } from './routes/$locale.checkout.$slug'
 import { Route as LocaleProductSlugRouteImport } from './routes/$locale.product.$slug'
 
@@ -77,6 +80,21 @@ const LocaleSoundsRoute = LocaleSoundsRouteImport.update({
   path: '/sounds',
   getParentRoute: () => LocaleRoute,
 } as any)
+const LocaleMemberDashboardRoute = LocaleMemberDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => LocaleMemberRoute,
+} as any)
+const LocaleMemberMyCoursesRoute = LocaleMemberMyCoursesRouteImport.update({
+  id: '/my-courses',
+  path: '/my-courses',
+  getParentRoute: () => LocaleMemberRoute,
+} as any)
+const LocaleMemberMyLibraryRoute = LocaleMemberMyLibraryRouteImport.update({
+  id: '/my-library',
+  path: '/my-library',
+  getParentRoute: () => LocaleMemberRoute,
+} as any)
 const LocaleCheckoutSlugRoute = LocaleCheckoutSlugRouteImport.update({
   id: '/checkout/$slug',
   path: '/checkout/$slug',
@@ -99,6 +117,9 @@ export interface FileRoutesByFullPath {
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/dashboard': typeof LocaleMemberDashboardRoute
+  '/$locale/my-courses': typeof LocaleMemberMyCoursesRoute
+  '/$locale/my-library': typeof LocaleMemberMyLibraryRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
@@ -112,6 +133,9 @@ export interface FileRoutesByTo {
   '/$locale/reset-password': typeof LocaleResetPasswordRoute
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
+  '/$locale/dashboard': typeof LocaleMemberDashboardRoute
+  '/$locale/my-courses': typeof LocaleMemberMyCoursesRoute
+  '/$locale/my-library': typeof LocaleMemberMyLibraryRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
@@ -120,7 +144,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/$locale/$': typeof LocaleSplatRoute
-  '/$locale/_member': typeof LocaleMemberRoute
+  '/$locale/_member': typeof LocaleMemberRouteWithChildren
   '/$locale/academy': typeof LocaleAcademyRoute
   '/$locale/contact': typeof LocaleContactRoute
   '/$locale/music': typeof LocaleMusicRoute
@@ -128,6 +152,9 @@ export interface FileRoutesById {
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
   '/$locale/': typeof LocaleIndexRoute
+  '/$locale/_member/dashboard': typeof LocaleMemberDashboardRoute
+  '/$locale/_member/my-courses': typeof LocaleMemberMyCoursesRoute
+  '/$locale/_member/my-library': typeof LocaleMemberMyLibraryRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
@@ -144,6 +171,9 @@ export interface FileRouteTypes {
     | '/$locale/signin'
     | '/$locale/sounds'
     | '/$locale/'
+    | '/$locale/dashboard'
+    | '/$locale/my-courses'
+    | '/$locale/my-library'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -157,6 +187,9 @@ export interface FileRouteTypes {
     | '/$locale/reset-password'
     | '/$locale/signin'
     | '/$locale/sounds'
+    | '/$locale/dashboard'
+    | '/$locale/my-courses'
+    | '/$locale/my-library'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
   id:
@@ -172,6 +205,9 @@ export interface FileRouteTypes {
     | '/$locale/signin'
     | '/$locale/sounds'
     | '/$locale/'
+    | '/$locale/_member/dashboard'
+    | '/$locale/_member/my-courses'
+    | '/$locale/_member/my-library'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
   fileRoutesById: FileRoutesById
@@ -260,6 +296,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocaleSoundsRouteImport
       parentRoute: typeof LocaleRoute
     }
+    '/$locale/_member/dashboard': {
+      id: '/$locale/_member/dashboard'
+      path: '/dashboard'
+      fullPath: '/$locale/dashboard'
+      preLoaderRoute: typeof LocaleMemberDashboardRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
+    '/$locale/_member/my-courses': {
+      id: '/$locale/_member/my-courses'
+      path: '/my-courses'
+      fullPath: '/$locale/my-courses'
+      preLoaderRoute: typeof LocaleMemberMyCoursesRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
+    '/$locale/_member/my-library': {
+      id: '/$locale/_member/my-library'
+      path: '/my-library'
+      fullPath: '/$locale/my-library'
+      preLoaderRoute: typeof LocaleMemberMyLibraryRouteImport
+      parentRoute: typeof LocaleMemberRoute
+    }
     '/$locale/checkout/$slug': {
       id: '/$locale/checkout/$slug'
       path: '/checkout/$slug'
@@ -277,9 +334,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface LocaleMemberRouteChildren {
+  LocaleMemberDashboardRoute: typeof LocaleMemberDashboardRoute
+  LocaleMemberMyCoursesRoute: typeof LocaleMemberMyCoursesRoute
+  LocaleMemberMyLibraryRoute: typeof LocaleMemberMyLibraryRoute
+}
+
+const LocaleMemberRouteChildren: LocaleMemberRouteChildren = {
+  LocaleMemberDashboardRoute: LocaleMemberDashboardRoute,
+  LocaleMemberMyCoursesRoute: LocaleMemberMyCoursesRoute,
+  LocaleMemberMyLibraryRoute: LocaleMemberMyLibraryRoute,
+}
+
+const LocaleMemberRouteWithChildren = LocaleMemberRoute._addFileChildren(
+  LocaleMemberRouteChildren,
+)
+
 interface LocaleRouteChildren {
   LocaleSplatRoute: typeof LocaleSplatRoute
-  LocaleMemberRoute: typeof LocaleMemberRoute
+  LocaleMemberRoute: typeof LocaleMemberRouteWithChildren
   LocaleAcademyRoute: typeof LocaleAcademyRoute
   LocaleContactRoute: typeof LocaleContactRoute
   LocaleMusicRoute: typeof LocaleMusicRoute
@@ -293,7 +366,7 @@ interface LocaleRouteChildren {
 
 const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleSplatRoute: LocaleSplatRoute,
-  LocaleMemberRoute: LocaleMemberRoute,
+  LocaleMemberRoute: LocaleMemberRouteWithChildren,
   LocaleAcademyRoute: LocaleAcademyRoute,
   LocaleContactRoute: LocaleContactRoute,
   LocaleMusicRoute: LocaleMusicRoute,
