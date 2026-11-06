@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as LocaleIndexRouteImport } from './routes/$locale.index'
 import { Route as LocaleSplatRouteImport } from './routes/$locale.$'
+import { Route as LocaleMemberRouteImport } from './routes/$locale._member'
 import { Route as LocaleAcademyRouteImport } from './routes/$locale.academy'
 import { Route as LocaleContactRouteImport } from './routes/$locale.contact'
 import { Route as LocaleMusicRouteImport } from './routes/$locale.music'
@@ -40,6 +41,10 @@ const LocaleIndexRoute = LocaleIndexRouteImport.update({
 const LocaleSplatRoute = LocaleSplatRouteImport.update({
   id: '/$',
   path: '/$',
+  getParentRoute: () => LocaleRoute,
+} as any)
+const LocaleMemberRoute = LocaleMemberRouteImport.update({
+  id: '/_member',
   getParentRoute: () => LocaleRoute,
 } as any)
 const LocaleAcademyRoute = LocaleAcademyRouteImport.update({
@@ -100,13 +105,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$locale/$': typeof LocaleSplatRoute
+  '/$locale': typeof LocaleIndexRoute
   '/$locale/academy': typeof LocaleAcademyRoute
   '/$locale/contact': typeof LocaleContactRoute
   '/$locale/music': typeof LocaleMusicRoute
   '/$locale/reset-password': typeof LocaleResetPasswordRoute
   '/$locale/signin': typeof LocaleSigninRoute
   '/$locale/sounds': typeof LocaleSoundsRoute
-  '/$locale': typeof LocaleIndexRoute
   '/$locale/checkout/$slug': typeof LocaleCheckoutSlugRoute
   '/$locale/product/$slug': typeof LocaleProductSlugRoute
 }
@@ -115,6 +120,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRouteWithChildren
   '/$locale/$': typeof LocaleSplatRoute
+  '/$locale/_member': typeof LocaleMemberRoute
   '/$locale/academy': typeof LocaleAcademyRoute
   '/$locale/contact': typeof LocaleContactRoute
   '/$locale/music': typeof LocaleMusicRoute
@@ -144,13 +150,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/$locale/$'
+    | '/$locale'
     | '/$locale/academy'
     | '/$locale/contact'
     | '/$locale/music'
     | '/$locale/reset-password'
     | '/$locale/signin'
     | '/$locale/sounds'
-    | '/$locale'
     | '/$locale/checkout/$slug'
     | '/$locale/product/$slug'
   id:
@@ -158,6 +164,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/$locale/$'
+    | '/$locale/_member'
     | '/$locale/academy'
     | '/$locale/contact'
     | '/$locale/music'
@@ -202,6 +209,13 @@ declare module '@tanstack/react-router' {
       path: '/$'
       fullPath: '/$locale/$'
       preLoaderRoute: typeof LocaleSplatRouteImport
+      parentRoute: typeof LocaleRoute
+    }
+    '/$locale/_member': {
+      id: '/$locale/_member'
+      path: ''
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleMemberRouteImport
       parentRoute: typeof LocaleRoute
     }
     '/$locale/academy': {
@@ -265,6 +279,7 @@ declare module '@tanstack/react-router' {
 
 interface LocaleRouteChildren {
   LocaleSplatRoute: typeof LocaleSplatRoute
+  LocaleMemberRoute: typeof LocaleMemberRoute
   LocaleAcademyRoute: typeof LocaleAcademyRoute
   LocaleContactRoute: typeof LocaleContactRoute
   LocaleMusicRoute: typeof LocaleMusicRoute
@@ -278,6 +293,7 @@ interface LocaleRouteChildren {
 
 const LocaleRouteChildren: LocaleRouteChildren = {
   LocaleSplatRoute: LocaleSplatRoute,
+  LocaleMemberRoute: LocaleMemberRoute,
   LocaleAcademyRoute: LocaleAcademyRoute,
   LocaleContactRoute: LocaleContactRoute,
   LocaleMusicRoute: LocaleMusicRoute,
