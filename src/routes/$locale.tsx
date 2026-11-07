@@ -41,7 +41,7 @@ function LocaleShell() {
 
   return (
     <CartDrawerProvider>
-      <div className="flex min-h-screen flex-col bg-background">
+      <div className="flex min-h-screen flex-col bg-background portal:portal-galaxy">
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-wire-ink focus:bg-background focus:px-3 focus:py-2 focus:text-[11px] focus:uppercase focus:tracking-[0.16em] focus:text-foreground"
