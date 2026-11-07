@@ -67,7 +67,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&family=Syncopate:wght@700&display=swap",
       },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
@@ -81,13 +81,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   // The locale lives in the first URL segment; keep <html lang/dir> in sync with it.
-  const firstSegment = useRouterState({
-    select: (state) => state.location.pathname.split("/")[1],
-  });
+  const segments = useRouterState({
+    select: (state) => state.location.pathname.split("/").filter(Boolean).join("/"),
+  }).split("/");
+  const firstSegment = segments[0];
   const lang = isLocale(firstSegment) ? firstSegment : defaultLocale;
+  // The home page (/pt, /en) wears the dark "portal" look; every other page
+  // keeps the Phase 01 wireframe. Set on <html> so overlays inherit it too.
+  const isHome = segments.length === 1 && isLocale(firstSegment);
 
   return (
-    <html lang={lang} dir={getLanguageDirection(lang)}>
+    <html
+      lang={lang}
+      dir={getLanguageDirection(lang)}
+      className={isHome ? "theme-portal" : undefined}
+    >
       <head>
         <HeadContent />
       </head>
