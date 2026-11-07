@@ -36,7 +36,7 @@ export const HeroSection = () => {
 
           <div className="mt-10 flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-media-soft">
             <span aria-hidden className="h-px w-10 bg-media-line/40" />
-            HISA · 2026
+            ALL RIGHTS RESERVED · 2026
           </div>
         </div>
       </Container>
