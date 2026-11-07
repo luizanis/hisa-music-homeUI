@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import { cn } from "@/lib/utils";
 
 /* Decorative pieces for the home page "portal" look. All aria-hidden. */
@@ -126,7 +128,7 @@ export const TechTag = ({
   children,
   className,
 }: {
-  children: string;
+  children: ReactNode;
   className?: string;
 }) => (
   <span

@@ -281,5 +281,7 @@
   "auth.resetChecking": "Verificando o link…",
   "auth.continue": "Continuar",
   "auth.backToLogin": "Voltar para entrar",
-  "catalog.loading": "Carregando…"
+  "catalog.loading": "Carregando…",
+  "home.hero.ctaPrimary": "Entrar no ecossistema",
+  "home.hero.ctaSecondary": "Explorar cursos"
 }
