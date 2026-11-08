@@ -171,7 +171,7 @@ export const AccountProvider = ({ children }: { children: ReactNode }) => {
         if (!user) return;
         setRealUser({
           name:
-            (user.user_metadata?.full_name as string | undefined) ??
+            (user.user_metadata?.["full_name"] as string | undefined) ??
             user.email?.split("@")[0] ??
             profile.name,
           email: user.email ?? profile.email,
@@ -186,7 +186,7 @@ export const AccountProvider = ({ children }: { children: ReactNode }) => {
           user
             ? {
                 name:
-                  (user.user_metadata?.full_name as string | undefined) ??
+                  (user.user_metadata?.["full_name"] as string | undefined) ??
                   user.email?.split("@")[0] ??
                   profile.name,
                 email: user.email ?? profile.email,
