@@ -58,7 +58,7 @@ const NotificationContext = createContext<NotificationContextValue | null>(
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAccount();
   const userKey = user?.email?.trim().toLowerCase() ?? null;
-  const [read, setRead] = useState<Set<string>>(() => readIds(userKey));
+  const [read, setRead] = useState<Set<string>>(() => new Set());
 
   useEffect(() => {
     setRead(readIds(userKey));

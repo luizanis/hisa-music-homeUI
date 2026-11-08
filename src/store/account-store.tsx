@@ -102,34 +102,37 @@ const itemKey = (item: Pick<CartItem, "slug" | "catalog">) =>
   `${item.catalog}:${item.slug}`;
 
 export const AccountProvider = ({ children }: { children: ReactNode }) => {
-  const [demoOn, setDemoOn] = useState<boolean>(() => read("demo", true));
+  const [demoOn, setDemoOn] = useState<boolean>(true);
   const [authReady, setAuthReady] = useState(false);
   const [realUser, setRealUser] = useState<{ name: string; email: string } | null>(
     null,
   );
-  const [profile, setProfile] = useState<Profile>(() => ({
-    ...demoProfile,
-    ...read<Profile>("profile", demoProfile),
-  }));
-  const [cart, setCart] = useState<CartItem[]>(() => read<CartItem[]>("cart", []));
-  const [localOrders, setLocalOrders] = useState<MockOrder[]>(() =>
-    read<MockOrder[]>("orders", []),
-  );
-  const [coupon, setCoupon] = useState<string | null>(() =>
-    read<string | null>("coupon", null),
-  );
-  const [lessonProgress, setLessonProgress] = useState<Record<string, string[]>>(
-    () => ({
-      ...initialLessonProgress,
-      ...read<Record<string, string[]>>("progress", {}),
-    }),
-  );
+  const [profile, setProfile] = useState<Profile>(demoProfile as Profile);
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [localOrders, setLocalOrders] = useState<MockOrder[]>([]);
+  const [coupon, setCoupon] = useState<string | null>(null);
+  const [lessonProgress, setLessonProgress] = useState<Record<string, string[]>>(initialLessonProgress);
   const [completionDates, setCompletionDates] = useState<
     Record<string, string>
-  >(() => ({
-    ...seedCompletionDates,
-    ...read<Record<string, string>>("completions", {}),
-  }));
+  >(seedCompletionDates);
+
+  // Browser storage is read after hydration so the server and the first client
+  // render agree; stored values then replace the defaults.
+  useEffect(() => {
+    setDemoOn(read("demo", true));
+    setProfile({ ...demoProfile, ...read<Profile>("profile", demoProfile as Profile) } as Profile);
+    setCart(read<CartItem[]>("cart", []));
+    setLocalOrders(read<MockOrder[]>("orders", []));
+    setCoupon(read<string | null>("coupon", null));
+    setLessonProgress({
+      ...initialLessonProgress,
+      ...read<Record<string, string[]>>("progress", {}),
+    });
+    setCompletionDates({
+      ...seedCompletionDates,
+      ...read<Record<string, string>>("completions", {}),
+    });
+  }, []);
 
   // Keep certificate eligibility and its completion date in sync with progress.
   useEffect(() => {
