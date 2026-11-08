@@ -6,7 +6,6 @@
  * such as "/pt/my-orders?order=HISA-1#items" navigate client-side.
  */
 import {
-  Navigate as RouterNavigate,
   Outlet,
   useLocation as useRouterLocation,
   useNavigate as useRouterNavigate,
@@ -15,6 +14,7 @@ import {
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useMemo,
   type AnchorHTMLAttributes,
   type ReactNode,
@@ -43,7 +43,12 @@ export const useNavigate = () => {
 
 export const useParams = <
   T extends Record<string, string | undefined> = Record<string, string | undefined>,
->(): Partial<T> => useRouterParams({ strict: false }) as Partial<T>;
+>(): Partial<T> => {
+  // Read loosely first: casting the call directly makes TanStack infer a
+  // `select` result type and then demand a `structuralSharing` option.
+  const params: Record<string, string | undefined> = useRouterParams({ strict: false });
+  return params as Partial<T>;
+};
 
 /** Location with string search ("?a=1") and hash ("#x"), like the original API. */
 export const useLocation = () => {
@@ -125,6 +130,14 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
 );
 NavLink.displayName = "NavLink";
 
-export const Navigate = ({ to, replace }: { to: string; replace?: boolean }) => (
-  <RouterNavigate href={to} replace={replace ?? false} />
-);
+/**
+ * Redirect on render, by href string (keeps "?search" and "#hash"). TanStack's
+ * <Navigate> requires a typed `to`, so this navigates once after mount instead.
+ */
+export const Navigate = ({ to, replace }: { to: string; replace?: boolean | undefined }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate(to, { replace: replace ?? false });
+  }, [navigate, replace, to]);
+  return null;
+};

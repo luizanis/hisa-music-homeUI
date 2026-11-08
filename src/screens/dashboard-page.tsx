@@ -41,6 +41,8 @@ const DashboardPage = () => {
         new Date(b.lastAccessed).getTime() - new Date(a.lastAccessed).getTime(),
     );
   const course = activeCourses[0] ?? courses[0];
+  // The demo course list is never empty; this only satisfies strict indexing.
+  if (!course) return null;
   const done = completedCount(course);
   const percent = coursePercent(course, done);
   const recentOrders = orders.slice(0, 3);
