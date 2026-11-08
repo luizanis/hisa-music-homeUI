@@ -508,7 +508,7 @@ const AccountPage = () => {
                   </label>
                   <Switch
                     id={`notification-${notification}`}
-                    checked={notifications[notification]}
+                    checked={notifications[notification] ?? false}
                     onCheckedChange={(checked) =>
                       setNotifications({
                         ...notifications,

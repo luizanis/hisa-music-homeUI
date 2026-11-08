@@ -66,7 +66,7 @@ const resolveSeeds = (
       authorName: reply.authorName,
       createdAt: reply.createdAt,
       body: reply.body[locale],
-      replyTo: reply.replyTo?.[locale],
+      ...(reply.replyTo ? { replyTo: reply.replyTo[locale] } : {}),
     })),
   }));
 
@@ -86,13 +86,13 @@ export const LessonDiscussion = ({ lessonId }: LessonDiscussionProps) => {
   const [body, setBody] = useState("");
   const [replyTarget, setReplyTarget] = useState<{
     threadId: string;
-    replyId?: string;
+    replyId?: string | undefined;
     name: string;
   } | null>(null);
   const [replyBody, setReplyBody] = useState("");
   const [editing, setEditing] = useState<{
     threadId: string;
-    replyId?: string;
+    replyId?: string | undefined;
   } | null>(null);
   const [editBody, setEditBody] = useState("");
   const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
@@ -173,9 +173,7 @@ export const LessonDiscussion = ({ lessonId }: LessonDiscussionProps) => {
                   authorName: profile.name,
                   createdAt: new Date().toISOString(),
                   body: text,
-                  replyTo: replyTarget.replyId
-                    ? replyTarget.name
-                    : undefined,
+                  ...(replyTarget.replyId ? { replyTo: replyTarget.name } : {}),
                 },
               ],
             }

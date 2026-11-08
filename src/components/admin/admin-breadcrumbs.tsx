@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useLocale } from "@/i18n/routing";
 
-type Crumb = { label: string; href?: string };
+type Crumb = { label: string; href?: string | undefined };
 
 export const AdminBreadcrumbs = () => {
   const { t } = useTranslation();

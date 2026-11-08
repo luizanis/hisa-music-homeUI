@@ -22,7 +22,8 @@ type ProductFormProps = {
   onCancel: () => void;
 };
 
-type FormErrors = Record<string, string>;
+type FormErrorField = "slug" | "titles" | "price" | "category" | "position" | "modules";
+type FormErrors = Partial<Record<FormErrorField, string>>;
 
 const fieldLabel = "text-[9px] font-normal uppercase tracking-[0.16em] text-wire-ink-soft";
 const fieldInput = "h-9 rounded-[var(--radius)] border-wire-rule text-[11px]";
@@ -219,7 +220,7 @@ export const ProductForm = ({
                   setDraft((current) => ({
                     ...current,
                     catalog,
-                    category: nextCategory,
+                    category: nextCategory ?? current.category,
                   }));
                 }}
                 className="h-9 w-full border border-wire-rule bg-background px-2 text-[10px] uppercase tracking-[0.1em] text-foreground"
